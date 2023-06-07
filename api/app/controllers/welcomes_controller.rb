@@ -1,11 +1,8 @@
 class WelcomesController < ApplicationController
 
     def index
-        render json: { message: 'Hello, index world!' }
+        render json: { message: 'Hello, index world! This is the main/presentation branch' }
       end
-      
-    def hello_world
-        render json: { message: 'Hello, world!' }
-      end
+    
 end
 
