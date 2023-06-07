@@ -1,25 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
+Hot-Fix-Branch
+Use this branch to correct failed deploys. It should be merged from the last working development branch before making any feature changes
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# Group-4-book-a-meal
+development branch:
+Use this to push tested,working features on. Always make a copy using 'git merge development' from the Hot-fix-Branch before working on any features locally so you have a copy of the working development branch before your changes in case something goes wrong.
+.
