@@ -1,5 +1,6 @@
 # README
 
+*ruby version: 3.0.4
 
 
 *Hot-Fix-Branch
