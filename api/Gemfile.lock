@@ -71,6 +71,7 @@ GEM
       activesupport (>= 5.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    jwt (2.7.1)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -157,6 +158,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  jwt
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
