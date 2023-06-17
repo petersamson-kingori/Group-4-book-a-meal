@@ -83,4 +83,5 @@ production:
   <<: *default
   database: book_a_meal_production
   username: book_a_meal
-  password: <%= ENV['BOOK_A_MEAL_DATABASE_PASSWORD'] %>
+  password: NmzQH031e0b81DPbEJo3Y0jaMPwl7seX
+  host: dpg-ci4ssamnqqlf6bqoat90-a.oregon-postgres.render.com
