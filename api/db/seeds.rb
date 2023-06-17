@@ -14,6 +14,6 @@ roles = Role.create([
 
 User.create([
     { username: 'John Doe', email: 'john@example.com', role: roles.first },
-    { username: 'John Doe', email: 'john@example.com', role: roles.first }
+    { username: 'Jane Doe', email: 'jane@example.com', role: roles.last }
 ])
 puts "done"
