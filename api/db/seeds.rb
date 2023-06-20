@@ -7,13 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts "seeding"
-roles = Role.create([
-    { name: 'Admin' },
-    { name: 'Customer' }
-])
 
-User.create([
-    { username: 'John Doe', email: 'john@example.com', role: roles.first },
-    { username: 'Jane Doe', email: 'jane@example.com', role: roles.last }
-])
+
 puts "done"

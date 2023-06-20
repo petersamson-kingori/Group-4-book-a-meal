@@ -1,63 +1,40 @@
-class ApplicationController < ActionController::Base
-    rescue_from StandardError, with: :standard_error
-  
-    def app_response(message: "success", status: 200, data: nil)
-      render json: {
-        message: message,
-        data: data
-      }, status: status
-    end
-  
-    # Hash data into web token
-    def encode(uid, email)
-      payload = {
-        data: {
-          uid: uid,
-          email: email
-        },
-        exp: 6.hours.from_now
-      }
-      JWT.encode(payload, ENV['food_stuff_key'], 'HS256')
-    end
-  
-    # Unhash
-    def decode(token)
+class ApplicationController < ActionController::API
+  before_action :authorized
+
+  def encode_token(payload)
+    payload[:exp] = 5.minutes.from_now.to_i
+    JWT.encode(payload, 'my_s3cr3t')
+  end
+
+  def auth_header
+    # { Authorization: 'Bearer <token>' }
+    request.headers['Authorization']
+  end
+
+  def decoded_token
+    if auth_header
+      token = auth_header.split(' ')[1]
+      # header: { 'Authorization': 'Bearer <token>' }
       begin
-        JWT.decode(token, ENV['food_stuff_key'], true, { algorithm: "HS256" })
-      rescue JWT::DecodeError => e
-        app_response(message: "failed", status: 401, data: { info: "your sesh has expired.log in again" })
+        JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+      rescue JWT::DecodeError
+        nil
       end
-    end
-  
-    # Save a user
-    def save_user(id)
-      session[:uid] = id
-      session[:expiry] = 6.hours.from_now
-    end
-  
-    # Remove user
-    def remove_user
-      session.delete(:uid)
-      session[:expiry] = Time.now
-    end
-  
-    # Check session for expiry
-    def session_expired?
-      session[:expiry] || Time.now
-      time_diff = (Time.parse(session[:expiry]) - Time.now).to_i
-      unless time_diff > 0
-        app_response(message: "failed", status: 401, data: { info: "your sesh has expired.log in again" })
-      end
-    end
-  
-    # Get user logged in
-    def user
-      User.find(session[:uid].to_i)
-    end
-  
-    # Rescue all common errors
-    def standard_error(exception)
-      app_response(message: "failed", data: { info: exception.message }, status: :unprocessable_entity)
     end
   end
-  
+
+  def current_user
+    if decoded_token
+      user_id = decoded_token[0]['user_id']
+      @user = User.find_by(id: user_id)
+    end
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def authorized
+    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  end
+end
