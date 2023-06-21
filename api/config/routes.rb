@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
     
       resources :welcomes
-      resources :users, only: [:create, :index]
+      resources :users, only: [:create, :index, :show]
       post '/login', to: 'auth#create'
       delete '/logout', to: 'auth#destroy'
       get '/profile', to: 'users#profile'
