@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       delete '/logout', to: 'auth#destroy'
       get '/profile', to: 'users#profile'
-      get '/current_user', to: 'users#current_user'
+      #get '/current_user', to: 'users#current_user'
     end
   end
 end

@@ -26,10 +26,10 @@ class Api::V1::UsersController < ApplicationController
       render json: { user: UserSerializer.new(user) }, status: :ok
     end
 
-    def current_user
-      user_id = decode_token(request.headers['Authorization']) # Replace with your JWT decoding logic
-      @current_user ||= User.find(user_id)
-    end
+    #def current_user
+      #user_id = decode_token(request.headers['Authorization']) # Replace with your JWT decoding logic
+      #@current_user ||= User.find(user_id)
+    #end
 
       
     private
