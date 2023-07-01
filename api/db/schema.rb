@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_01_211408) do
+ActiveRecord::Schema.define(version: 2023_07_01_225557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2023_07_01_211408) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "menu_options", force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_id"], name: "index_menu_options_on_menu_id"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.bigint "caterer_id", null: false
     t.string "name"
@@ -31,6 +41,15 @@ ActiveRecord::Schema.define(version: 2023_07_01_211408) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["caterer_id"], name: "index_menus_on_caterer_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "menu_option_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_option_id"], name: "index_orders_on_menu_option_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,5 +65,8 @@ ActiveRecord::Schema.define(version: 2023_07_01_211408) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "menu_options", "menus"
   add_foreign_key "menus", "caterers"
+  add_foreign_key "orders", "menu_options"
+  add_foreign_key "orders", "users"
 end

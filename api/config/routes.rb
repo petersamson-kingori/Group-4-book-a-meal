@@ -1,6 +1,8 @@
 
 Rails.application.routes.draw do
 
+  resources :orders
+  resources :menu_options
   root 'api/v1/welcomes#index'
 
   namespace :api do
