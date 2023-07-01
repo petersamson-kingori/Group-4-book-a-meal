@@ -30,8 +30,15 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def current_caterer
+    if decoded_token
+      caterer_id = decoded_token[0]['caterer_id']
+      @caterer = Caterer.find_by(id: caterer_id)
+    end
+  end
+
   def logged_in?
-    !!current_user
+    !!current_user || !!current_caterer
   end
 
   def authorized

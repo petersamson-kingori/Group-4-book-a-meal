@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  caterer: one
+  name: MyString
+  description: MyText
+  price: 1
+  isSelected: false
+
+two:
+  caterer: two
+  name: MyString
+  description: MyText
+  price: 1
+  isSelected: false
