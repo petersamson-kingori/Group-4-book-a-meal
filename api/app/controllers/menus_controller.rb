@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  before_action :set_menu, only: [:show, :update, :destroy]
+  skip_before_action :authorized, only: [:index, :show, :update, :destroy]
 
   # GET /menus
   def index
