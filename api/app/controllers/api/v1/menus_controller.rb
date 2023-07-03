@@ -4,7 +4,6 @@ class Api::V1::MenusController < ApplicationController
   # GET /menus
   def index
     @menus = Menu.all
-
     render json: @menus
   end
 
@@ -39,13 +38,14 @@ class Api::V1::MenusController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_menu
-      @menu = Menu.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def menu_params
-      params.require(:menu).permit(:caterer_id, :name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_menu
+    @menu = Menu.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def menu_params
+    params.require(:menu).permit(:caterer_id, :name, :description)
+  end
 end
