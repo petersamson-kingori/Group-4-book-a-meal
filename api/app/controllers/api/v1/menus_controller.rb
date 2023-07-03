@@ -1,4 +1,4 @@
-class MenusController < ApplicationController
+class Api::V1::MenusController < ApplicationController
   skip_before_action :authorized, only: [:index, :show, :update, :destroy]
 
   # GET /menus

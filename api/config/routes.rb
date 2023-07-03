@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
     
       resources :welcomes
-      resources :menus  
+      resources :menus, only: [:create, :index, :show] 
 
       
       resources :caterers, only: [:create, :index, :show]
