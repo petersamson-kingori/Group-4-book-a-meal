@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   resources :reviews
   resources :orders
-  resources :menus  
-  resources :menu_options
+ 
   root 'api/v1/welcomes#index'
 
   namespace :api do
@@ -14,7 +13,12 @@ Rails.application.routes.draw do
       resources :menus, only: [:create, :index, :show] 
 
       
-      resources :caterers, only: [:create, :index, :show]
+      resources :caterers do
+        resources :menus do
+          resources :menu_options
+        end
+      end
+
       resources :users, only: [:create, :index, :show]
 
       post '/login', to: 'auth#create'

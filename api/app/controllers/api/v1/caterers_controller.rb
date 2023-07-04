@@ -44,4 +44,12 @@ class Api::V1::CaterersController < ApplicationController
   rescue JWT::DecodeError
     nil
   end
+  def create_weekly_menus
+    days_of_week = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
+    
+    days_of_week.each do |day|
+      Menu.create(caterer: @caterer, name: "#{day} Menu")
+    end
+  end
+
 end

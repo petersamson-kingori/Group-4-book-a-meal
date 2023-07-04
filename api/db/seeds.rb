@@ -18,19 +18,31 @@ if caterers.empty?
   ])
 end
 
-# Create menus
-menus = Menu.create([
-  { caterer: caterers.first, name: 'Meaty Menu', description: 'Description of Menu 1' },
-  { caterer: caterers.last, name: 'Veggie Menu', description: 'Description of Menu 2' }
-])
+=begin
+# Define the menu names and descriptions for each day of the week
+menu_data = [
+  { name: 'Monday Menu', description: 'Description of Monday Menu' },
+  { name: 'Tuesday Menu', description: 'Description of Tuesday Menu' },
+  { name: 'Wednesday Menu', description: 'Description of Wednesday Menu' },
+  { name: 'Thursday Menu', description: 'Description of Thursday Menu' },
+  { name: 'Friday Menu', description: 'Description of Friday Menu' },
+  { name: 'Saturday Menu', description: 'Description of Saturday Menu' },
+  { name: 'Sunday Menu', description: 'Description of Sunday Menu' }
+]
+
+# Find the index of the current day (0 - Monday, 1 - Tuesday, etc.)
+current_day_index = Time.zone.now.wday
+
+# Get the menu data for the current day
+current_menu_data = menu_data[current_day_index]
+
+# Find or create the menu for the current day
+menu = Menu.find_or_create_by(caterer: caterers.first, name: current_menu_data[:name]) do |m|
+  m.description = current_menu_data[:description]
+end
 
 # Create menu options
-menu_options = MenuOption.create([
-  { menu: menus.first, name: 'Option 1', description: 'Description of Option 1', price: 10 },
-  { menu: menus.first, name: 'Option 2', description: 'Description of Option 2', price: 15 },
-  { menu: menus.last, name: 'Option 3', description: 'Description of Option 3', price: 12 },
-  { menu: menus.last, name: 'Option 4', description: 'Description of Option 4', price: 18 }
-])
+=end
 
 # Create users
 users = User.create([
@@ -38,17 +50,7 @@ users = User.create([
   { username: 'user2', password: 'password2', email: 'user2@example.com' }
 ])
 
-# Create orders
-orders = Order.create([
-  { user: users.first, menu_option: menu_options.first },
-  { user: users.first, menu_option: menu_options.last },
-  { user: users.last, menu_option: menu_options.third }
-])
 
-# Create reviews
-reviews = Review.create([
-  { user: users.first, caterer: caterers.first },
-  { user: users.last, caterer: caterers.last }
-])
+
 
 puts "Seed data created successfully!"
