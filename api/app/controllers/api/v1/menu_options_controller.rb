@@ -42,6 +42,6 @@ class Api::V1::MenuOptionsController < ApplicationController
   end
 
   def menu_option_params
-    params.require(:menu_option).permit(:name, :description, :price, :day)
+    params.require(:menu_option).permit(:name, :description, :price)
   end
 end
