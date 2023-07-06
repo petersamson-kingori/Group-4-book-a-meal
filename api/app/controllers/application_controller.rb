@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   before_action :authorized
 
   def encode_token(payload)
-    payload[:exp] = 5.minutes.from_now.to_i
+    payload[:exp] = 10.minutes.from_now.to_i
     JWT.encode(payload, 'my_s3cr3t')
   end
 
