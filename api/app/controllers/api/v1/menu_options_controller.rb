@@ -11,21 +11,22 @@ class Api::V1::MenuOptionsController < ApplicationController
 
   def create
     # Find the day's menu based on the :day parameter
-    @menu_for_day = @caterer.menus.find_by(name: "#{menu_option_params[:day]} Menu")
+    @menu_for_day = @caterer.menus.find_by(name: menu_option_params[:day])
     unless @menu_for_day
       render json: { error: "Menu for the specified day does not exist" }, status: :unprocessable_entity
       return
     end
-
+  
     # Build the menu option for the found menu
     @menu_option = @menu_for_day.menu_options.build(menu_option_params)
-
+  
     if @menu_option.save
       render json: @menu_option, status: :created
     else
       render json: @menu_option.errors, status: :unprocessable_entity
     end
   end
+  
 
   private
 
