@@ -37,8 +37,6 @@ class Api::V1::CaterersController < ApplicationController
   end
 
   def decode_token(token)
-    # Implement your JWT decoding logic to retrieve the caterer ID from the token
-    # This is just a placeholder, you need to replace it with your actual decoding logic
     decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
     decoded_token.first['caterer_id']
   rescue JWT::DecodeError
