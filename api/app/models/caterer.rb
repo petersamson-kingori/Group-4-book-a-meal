@@ -16,7 +16,7 @@ class Caterer < ApplicationRecord
       days_of_week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   
       days_of_week.each do |day|
-        menus.create(name: "#{day} Menu", description: "Menu for #{day}")
+        menus.create(name: "#{day}", description: "Menu for #{day}")
       end
     end
 end
