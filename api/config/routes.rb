@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     
       resources :welcomes
       resources :menus, only: [:create, :index, :show] 
+     
 
       
       resources :caterers do
@@ -19,7 +20,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, only: [:create, :index, :show]
+      resources :users, only: [:create, :index, :show] do
+        resources :user_menu_options, only: [:index]
+      end
 
       post '/login', to: 'auth#create'
       post '/login_caterer', to: 'auth#create_caterer'

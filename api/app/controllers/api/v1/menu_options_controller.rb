@@ -2,7 +2,7 @@ class Api::V1::MenuOptionsController < ApplicationController
   before_action :set_caterer
   before_action :set_menu
   before_action :set_menu_option, only: [:show, :update, :destroy]
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :index]
 
   def index
     @menu_options = @menu.menu_options
