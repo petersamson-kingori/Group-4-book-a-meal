@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+=begin
 
 # Fetch existing caterers
 caterers = Caterer.all
@@ -18,7 +18,7 @@ if caterers.empty?
   ])
 end
 
-=begin
+
 # Define the menu names and descriptions for each day of the week
 menu_data = [
   { name: 'Monday Menu', description: 'Description of Monday Menu' },
@@ -42,14 +42,14 @@ menu = Menu.find_or_create_by(caterer: caterers.first, name: current_menu_data[:
 end
 
 # Create menu options
-=end
+
 
 # Create users
 users = User.create([
   { username: 'user1', password: 'password1', email: 'user1@example.com' },
   { username: 'user2', password: 'password2', email: 'user2@example.com' }
 ])
-
+=end
 
 
 
