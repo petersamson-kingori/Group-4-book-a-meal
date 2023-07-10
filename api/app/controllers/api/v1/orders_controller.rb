@@ -31,7 +31,7 @@ class Api::V1::OrdersController < ApplicationController
     private
   
     def order_params
-      params.require(:order).permit(:userId, items: [:id, :name, :price], :shippingLocation)
+      params.require(:order).permit(:userId, :shippingLocation)
     end
   end
   
