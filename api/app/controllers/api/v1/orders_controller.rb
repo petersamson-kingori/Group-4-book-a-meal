@@ -17,16 +17,14 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       items.each do |item|
         menu_option_id = item[:id]
-
-        # Find the menu option based on the provided item ID
         menu_option = MenuOption.find_by(id: menu_option_id)
 
         if menu_option
           # Create an order item for the menu option
-          order_item = order.order_items.build(menu_option: menu_option, name: item[:name], price: item[:price])
+          order_item = order.order_items.build(menu_option_id: menu_option.id, name: menu_option.name, price: menu_option.price)
           order_item.save
         else
-          # Handle case when menu option is not found
+          # Handle the case when the menu option is not found
           render json: { error: "Menu option with ID #{menu_option_id} not found" }, status: :unprocessable_entity
           return
         end
