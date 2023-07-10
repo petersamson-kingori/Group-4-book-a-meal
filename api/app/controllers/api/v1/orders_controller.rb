@@ -17,17 +17,11 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       items.each do |item|
         menu_option_name = item[:name]
-        menu_option = Menu_options.find_by(name: menu_option_name)
+        menu_option_price = item[:price]
 
-        if menu_option
-          # Create an order item for the menu option
-          order_item = order.order_items.build(menu_option_id: menu_option.id, name: menu_option.name, price: menu_option.price)
-          order_item.save
-        else
-          # Handle the case when the menu option is not found
-          render json: { error: "Menu option with name '#{menu_option_name}' not found" }, status: :unprocessable_entity
-          return
-        end
+        # Create an order item for the menu option
+        order_item = order.order_items.build(name: menu_option_name, price: menu_option_price)
+        order_item.save
       end
 
       # Send a confirmation to the user or caterer
@@ -44,6 +38,6 @@ class Api::V1::OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:userId, :email, :shippingLocation, items: [:id, :name, :price])
+    params.permit(:userId, :email, :shippingLocation, items: [:name, :price])
   end
 end
