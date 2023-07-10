@@ -17,7 +17,7 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       items.each do |item|
         menu_option_name = item[:name]
-        menu_option = Menu.menu_options.find_by(name: menu_option_name)
+        menu_option = Menu_options.find_by(name: menu_option_name)
 
         if menu_option
           # Create an order item for the menu option
