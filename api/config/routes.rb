@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
 
   resources :reviews
-  resources :orders
+ 
  
   root 'api/v1/welcomes#index'
 
@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     
       resources :welcomes
       resources :menus, only: [:create, :index, :show] 
+
+      resources :orders
      
 
       
