@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :menus, only: [:create, :index, :show] 
 
       resources :orders
+      resources :menu_options
      
 
       
