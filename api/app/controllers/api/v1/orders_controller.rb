@@ -17,7 +17,7 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       items.each do |item|
         menu_option_id = item[:id]
-
+      
         # Create an order item for the menu option
         order_item = order.order_items.build(menu_option_id: menu_option_id, name: item[:name], price: item[:price])
         order_item.save
@@ -37,6 +37,7 @@ class Api::V1::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:userId, :email, :shippingLocation, items: [:id, :name, :price])
+    params.permit(:userId, :email, :shippingLocation, items: [:id, :name, :price])
   end
+  
 end
