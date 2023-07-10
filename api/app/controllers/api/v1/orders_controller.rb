@@ -17,12 +17,19 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       items.each do |item|
         menu_option_name = item[:name]
-        menu_option = order.menu.menu_options.find_by(name: menu_option_name)
+        menu_option = MenuOption.find_by(name: menu_option_name)
 
         if menu_option
-          # Create an order item for the menu option
-          order_item = order.order_items.build(menu_option_id: menu_option.id, name: menu_option.name, price: menu_option.price)
-          order_item.save
+          # Check if the menu option belongs to the user's menu
+          if user_menu_option?(user, menu_option)
+            # Create an order item for the menu option
+            order_item = order.order_items.build(menu_option_id: menu_option.id, name: menu_option.name, price: menu_option.price)
+            order_item.save
+          else
+            # Handle the case when the menu option does not belong to the user's menu
+            render json: { error: "Menu option with name '#{menu_option_name}' does not exist in the user's menu" }, status: :unprocessable_entity
+            return
+          end
         else
           # Handle the case when the menu option is not found
           render json: { error: "Menu option with name '#{menu_option_name}' not found" }, status: :unprocessable_entity
@@ -42,6 +49,10 @@ class Api::V1::OrdersController < ApplicationController
   # Other actions...
 
   private
+
+  def user_menu_option?(user, menu_option)
+    user.menus.exists?(id: menu_option.menu_id)
+  end
 
   def order_params
     params.permit(:userId, :email, :shippingLocation, items: [:id, :name, :price])
