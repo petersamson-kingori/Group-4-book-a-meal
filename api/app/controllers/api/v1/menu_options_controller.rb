@@ -27,6 +27,10 @@ class Api::V1::MenuOptionsController < ApplicationController
     end
   end
   
+  def destroy
+    @menu_option.destroy
+    head :no_content
+  end
 
   private
 
