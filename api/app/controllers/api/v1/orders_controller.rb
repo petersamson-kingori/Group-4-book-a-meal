@@ -19,8 +19,8 @@ class Api::V1::OrdersController < ApplicationController
 
   private
 
-def order_params
-  params.require(:order).permit(:userId, :email, :shippingLocation, items: [:id])
-end
+  def order_params
+    params.permit(:userId, :email, :shippingLocation, items: [:id, :name, :price])
+  end
 
 end
