@@ -2,19 +2,16 @@ class Api::V1::OrdersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def create
-    @order = Order.new(order_params.except(:items))
-  
+    @order = current_user.orders.build(order_params)
+
+    # Rest of the code to create order items
+
     if @order.save
-      # Create OrderItems for each item
-      params[:items].each do |item|
-        @order.order_items.create(menu_option_id: item[:id])
-      end
       render json: @order, status: :created, location: @order
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: { errors: @order.errors }, status: :unprocessable_entity
     end
   end
-  
     
   
 
